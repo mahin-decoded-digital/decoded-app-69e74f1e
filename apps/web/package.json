@@ -16,7 +16,10 @@
     "class-variance-authority": "^0.7.0",
     "@radix-ui/react-slot": "^1.1.0",
     "lucide-react": "^0.460.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "recharts": "^2.13.0",
+    "framer-motion": "^11.11.0",
+    "sonner": "^1.7.0"
   },
   "devDependencies": {
     "typescript": "~5.7.0",

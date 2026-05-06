@@ -1,9 +1,11 @@
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Home, LogOut, Settings, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ThemeToggle } from '@/components/theme-toggle';
 import { cn } from '@/lib/utils';
 import { LOGO_URL } from '@/lib/utils-notes';
 import { useAuthStore } from '@/stores/auth-store';
+import { useTheme } from '@/hooks/use-theme';
 
 const navItems = [
   { to: '/app', label: 'Notes', icon: Home },
@@ -16,6 +18,9 @@ export const AppShell = (): JSX.Element => {
   const logout = useAuthStore((state) => state.logout);
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Ensures the <html> class is in sync on every render that touches the shell
+  useTheme();
 
   const handleLogout = (): void => {
     logout();
@@ -44,7 +49,7 @@ export const AppShell = (): JSX.Element => {
                   className={({ isActive }) => cn(
                     'flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors',
                     isActive
-                      ? 'bg-[#35526f] text-white shadow-sm'
+                      ? 'bg-[#35526f] text-primary-foreground shadow-sm'
                       : 'text-muted-foreground hover:bg-muted hover:text-foreground',
                   )}
                 >
@@ -56,6 +61,7 @@ export const AppShell = (): JSX.Element => {
           </nav>
 
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <div className="hidden text-right sm:block">
               <p className="text-sm font-medium text-foreground">{user?.name ?? 'Workspace'}</p>
               <p className="text-xs text-muted-foreground">{user?.email ?? 'Signed out'}</p>
@@ -78,7 +84,7 @@ export const AppShell = (): JSX.Element => {
                   className={cn(
                     'flex items-center gap-2 whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium transition-colors',
                     active
-                      ? 'bg-[#35526f] text-white shadow-sm'
+                      ? 'bg-[#35526f] text-primary-foreground shadow-sm'
                       : 'text-muted-foreground hover:bg-muted hover:text-foreground',
                   )}
                 >

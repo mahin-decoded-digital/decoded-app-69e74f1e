@@ -1,9 +1,11 @@
 import { Link, Navigate } from 'react-router-dom';
 import { ArrowRight, CheckCircle, ShieldCheck, Star, Users } from 'lucide-react';
 import { AuthForm } from '@/components/auth-form';
+import { ThemeToggle } from '@/components/theme-toggle';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/stores/auth-store';
+import { useTheme } from '@/hooks/use-theme';
 import { LOGO_URL } from '@/lib/utils-notes';
 
 const signupBenefits = [
@@ -28,13 +30,21 @@ export default function SignupPage(): JSX.Element {
   const user = useAuthStore((state) => state.user);
   const isHydrated = useAuthStore((state) => state.isHydrated);
 
+  // Sync theme class on auth pages
+  useTheme();
+
   if (isHydrated && user) {
     return <Navigate to="/app" replace />;
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-primary/10 via-background to-background">
-      <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-10 lg:px-6">
+      {/* Top-right theme toggle */}
+      <div className="flex justify-end px-4 pt-4 sm:px-6 lg:px-8">
+        <ThemeToggle />
+      </div>
+
+      <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 pb-10 pt-4 lg:px-6">
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           <section className="space-y-8 rounded-2xl border border-border bg-card p-8 shadow-sm">
             <div className="flex items-center gap-3">
